@@ -1,18 +1,20 @@
-package com.sruthi.Subject;
+package com.sruthi.model;
+
+
 
 public class Subject {
 private int subId;
-private CheckSubjectEnum subName;
+private String subName;
 public int getSubId() {
 	return subId;
 }
 public void setSubId(int subId) {
 	this.subId = subId;
 }
-public CheckSubjectEnum getSubName() {
+public String getSubName() {
 	return subName;
 }
-public void setSubName(CheckSubjectEnum subName) {
+public void setSubName(String subName) {
 	this.subName = subName;
 }
 @Override

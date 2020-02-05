@@ -1,4 +1,4 @@
-package com.sruthi.Title;
+package com.sruthi.model;
 
 import java.time.LocalDate;
 
@@ -59,9 +59,11 @@ public int getPrice() {
 public void setPrice(int price) {
 	this.price = price;
 }
+
+
 @Override
 public String toString() {
-	return "Titles [titleId=" + titleId + ", pubId=" + pubId + ", subId=" + subId + ", authorId=" + authorId
+	return "Title [titleId=" + titleId + ", pubId=" + pubId + ", subId=" + subId + ", authorId=" + authorId
 			+ ", pubDate=" + pubDate + ", title=" + title + ", versionNumber=" + versionNumber + ", price=" + price
 			+ "]";
 }

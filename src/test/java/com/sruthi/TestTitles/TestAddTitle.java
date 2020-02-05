@@ -5,16 +5,15 @@ import java.util.Scanner;
 
 import com.sruthi.DAOFactory;
 import com.sruthi.Logger;
-import com.sruthi.Title.Title;
-import com.sruthi.Title.TitleDAO;
+import com.sruthi.dao.TitleDAO;
+import com.sruthi.model.Title;
 
 public class TestAddTitle {
-	private static final Logger LOGGER = Logger.getInstance();
 	/**
-	 * @param args
-	 * @throws Exception
+	 * 
 	 */
-	public static void main(String[] args) throws Exception {
+	private static final Logger LOGGER = Logger.getInstance();
+	public static void main(String[] args)  {
 		Title t = new Title();
 		Scanner in = new Scanner(System.in);
 		
@@ -40,7 +39,12 @@ public class TestAddTitle {
 		int price = in.nextInt();
 		t.setPrice(price);
 		TitleDAO dao = DAOFactory.getTitleDAO();
-		dao.addTitle(t);
+		try {
+			dao.addTitle(t);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		in.close();
 		
 

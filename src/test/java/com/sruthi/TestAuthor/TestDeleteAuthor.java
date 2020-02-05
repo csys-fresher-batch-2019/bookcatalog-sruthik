@@ -4,12 +4,12 @@ import java.util.Scanner;
 
 import com.sruthi.DAOFactory;
 import com.sruthi.Logger;
-import com.sruthi.Author.AuthorDAO;
+import com.sruthi.dao.AuthorDAO;
 
 
 public class TestDeleteAuthor {
 	private static final Logger LOGGER = Logger.getInstance();
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args)  {
 		// TODO Auto-generated method stub
 		Scanner in = new Scanner(System.in);
 		LOGGER.getInput("Enter Author-id : ");
@@ -17,7 +17,12 @@ public class TestDeleteAuthor {
 //        AuthorImpl a = new AuthorImpl();
 //        a.deleteAuthor(id);
 		AuthorDAO dao = DAOFactory.getAuthorDAO();
-	       dao.deleteAuthor(id);
+	       try {
+			dao.deleteAuthor(id);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         in.close();
 	}
 

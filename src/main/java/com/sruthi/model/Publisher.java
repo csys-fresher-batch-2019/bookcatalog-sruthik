@@ -1,4 +1,4 @@
-package com.sruthi.Publisher;
+package com.sruthi.model;
 
  public class Publisher {
  private int pubId;

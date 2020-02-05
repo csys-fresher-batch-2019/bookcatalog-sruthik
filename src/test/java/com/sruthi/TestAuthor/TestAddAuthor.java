@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 import com.sruthi.DAOFactory;
 import com.sruthi.Logger;
-import com.sruthi.Author.Author;
-import com.sruthi.Author.AuthorDAO;
+import com.sruthi.dao.AuthorDAO;
+import com.sruthi.model.Author;
 
 public class TestAddAuthor {
 	private static final Logger LOGGER = Logger.getInstance();
@@ -22,9 +22,9 @@ public class TestAddAuthor {
        
 //       AuthorImpl daoImpl = new AuthorImpl();
 //       daoImpl.addAuthor(a);
-       AuthorDAO dao = DAOFactory.getAuthorDAO();
-       dao.addAuthor(a);
-      
+       AuthorDAO dao = DAOFactory.getAuthorDAO();  
+		dao.addAuthor(a);
+ 
 //		System.out.println("Enter Author-id : ");
 //		int id = in.nextInt();
 //       dao.deleteAuthor(id);

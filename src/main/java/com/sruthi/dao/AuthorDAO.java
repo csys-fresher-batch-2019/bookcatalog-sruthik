@@ -1,6 +1,8 @@
-package com.sruthi.Author;
+package com.sruthi.dao;
 
 import java.util.List;
+
+import com.sruthi.model.Author;
 
 public interface AuthorDAO {
 	void addAuthor(Author author) throws Exception;

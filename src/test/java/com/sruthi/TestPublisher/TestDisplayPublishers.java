@@ -1,14 +1,19 @@
 package com.sruthi.TestPublisher;
 
 import com.sruthi.DAOFactory;
-import com.sruthi.Publisher.PublisherDAO;
+import com.sruthi.dao.PublisherDAO;
 
 public class TestDisplayPublishers {
 
-	public static void main(String[] args) throws Exception{
+	public static void main(String[] args) {
 		
 		PublisherDAO dao = DAOFactory.getPublisherDAO();
-		dao.displayPubId();
+		try {
+			dao.displayPubId();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 

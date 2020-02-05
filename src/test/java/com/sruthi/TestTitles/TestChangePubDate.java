@@ -5,13 +5,13 @@ import java.util.Scanner;
 
 import com.sruthi.DAOFactory;
 import com.sruthi.Logger;
-import com.sruthi.Title.Title;
-import com.sruthi.Title.TitleDAO;
-import com.sruthi.Title.TitleImpl;
+import com.sruthi.dao.TitleDAO;
+import com.sruthi.model.Title;
+
 
 public class TestChangePubDate {
 	private static final Logger LOGGER = Logger.getInstance();
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args)  {
 		Title t = new Title();
 		Scanner in = new Scanner(System.in);
 		LOGGER.getInput("Enter Published-Date : ");
@@ -27,7 +27,12 @@ public class TestChangePubDate {
 //		TitleImpl daoImpl = new TitleImpl();
 //		daoImpl.ChangePubDate(t);
 		TitleDAO dao = DAOFactory.getTitleDAO();
-		dao.ChangePubDate(t);
+		try {
+			dao.ChangePubDate(t);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		in.close();
 		
 

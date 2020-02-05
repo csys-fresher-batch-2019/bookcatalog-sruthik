@@ -1,4 +1,4 @@
-package com.sruthi.Subject;
+package com.sruthi.impl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,15 +8,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sruthi.ConnectionUtil;
 import com.sruthi.Logger;
+import com.sruthi.dao.SubjectDAO;
+import com.sruthi.model.Subject;
 
 public class SubjectImpl implements SubjectDAO{
 	private static final Logger LOGGER = Logger.getInstance();
 	@Override
 	public void addSubject(Subject sub) throws Exception {
 		String sql = "insert into subjects(sub_id,sub_name)values(sub_id_seq.nextVal,?)";
-		Class.forName("oracle.jdbc.driver.OracleDriver");
-	    Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "oracle");
+		Connection connection = ConnectionUtil.getConnection();
 	    PreparedStatement pst = connection.prepareStatement(sql);
 	    pst.setString(1,sub.getSubName().toString());
 	    int rows = pst.executeUpdate();
@@ -29,17 +31,19 @@ public class SubjectImpl implements SubjectDAO{
 		List<Subject> list = new ArrayList<Subject>();
 		
 		String sql = "select sub_id,sub_name from subjects";
-		Class.forName("oracle.jdbc.driver.OracleDriver");
-	    Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "oracle");
+		Connection connection = ConnectionUtil.getConnection();
 	    Statement stmt=connection.createStatement();
 	    ResultSet rs = stmt.executeQuery(sql);
 	    while(rs.next()) {
-	    	String subName = rs.getString("sub_name");
+	    	
 	    	int subId = rs.getInt("sub_id");
-	    	LOGGER.debug("Subject Name : "+subName+"\nSubject Id : "+subId);
+	    	String subName = rs.getString("sub_name");
+	    	LOGGER.debug("Subject Id : "+subId+"\nSubject Name : "+subName);
 	    	
 	    	
 	    	Subject sub = new Subject();
+	    	sub.setSubId(subId);
+	    	sub.setSubName(subName);
 	    	
 	    	list.add(sub);
  	
@@ -53,8 +57,7 @@ public class SubjectImpl implements SubjectDAO{
 	@Override
 	public void updateSubject(Subject sub) throws Exception {
 		String sql = "update subjects set sub_name = ?where sub_id = ?";
-		Class.forName("oracle.jdbc.driver.OracleDriver");
-	    Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "oracle");
+		Connection connection = ConnectionUtil.getConnection();
 	    PreparedStatement pst = connection.prepareStatement(sql);
 	    pst.setString(1, sub.getSubName().toString());
 	    pst.setInt(2, sub.getSubId());
@@ -66,8 +69,7 @@ public class SubjectImpl implements SubjectDAO{
 	@Override
 	public void deleteSubject(int subId) throws Exception {
 		String sql = "Delete from subjects where sub_id = ?";
-		Class.forName("oracle.jdbc.driver.OracleDriver");
-	    Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "oracle");
+		Connection connection = ConnectionUtil.getConnection();
 	    PreparedStatement pst = connection.prepareStatement(sql);
 	    pst.setInt(1,subId);
 	    int rows = pst.executeUpdate();

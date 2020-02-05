@@ -1,4 +1,4 @@
-package com.sruthi.Author;
+package com.sruthi.model;
 
 public class Author{
 	private int authorId;

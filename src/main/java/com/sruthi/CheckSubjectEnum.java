@@ -1,4 +1,4 @@
-package com.sruthi.Subject;
+package com.sruthi;
 
 public enum CheckSubjectEnum {
 	Tamil,

@@ -4,13 +4,13 @@ import java.util.Scanner;
 
 import com.sruthi.DAOFactory;
 import com.sruthi.Logger;
-import com.sruthi.Publisher.Publisher;
-import com.sruthi.Publisher.PublisherDAO;
+import com.sruthi.dao.PublisherDAO;
+import com.sruthi.model.Publisher;
 
 public class TestUpdatePublisher {
 	private static final Logger LOGGER = Logger.getInstance();
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args)   {
 		// TODO Auto-generated method stub
 		Publisher p = new Publisher();
 		Scanner in = new Scanner(System.in);
@@ -21,12 +21,16 @@ public class TestUpdatePublisher {
 		String mail = in.next();
 		p.setPubMailId(mail);
 		LOGGER.getInput("Enter Publisher ph-no : ");
-		String phone = in.next();
-		p.setPubPhNo(phone);
+		p.setPubPhNo(in.next());
 //		PublisherImpl obj = new PublisherImpl();
 //		obj.updateMailIdAndPhNo(p);
 		PublisherDAO dao = DAOFactory.getPublisherDAO();
-		dao.updateMailIdAndPhNo(p);
+		try {
+			dao.updateMailIdAndPhNo(p);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		in.close();
 
 	}

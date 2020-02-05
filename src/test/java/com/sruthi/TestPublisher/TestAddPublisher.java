@@ -4,12 +4,12 @@ import java.util.Scanner;
 
 import com.sruthi.DAOFactory;
 import com.sruthi.Logger;
-import com.sruthi.Publisher.Publisher;
-import com.sruthi.Publisher.PublisherDAO;
+import com.sruthi.dao.PublisherDAO;
+import com.sruthi.model.Publisher;
 
 public class TestAddPublisher {
 	private static final Logger LOGGER = Logger.getInstance();
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args)  {
 		// TODO Auto-generated method stub
 		Publisher p = new Publisher();
 		Scanner in = new Scanner(System.in);
@@ -24,7 +24,12 @@ public class TestAddPublisher {
 		p.setPubPhNo(phone);
 		
 		PublisherDAO dao = DAOFactory.getPublisherDAO();
-		dao.addPublisher(p);
+		try {
+			dao.addPublisher(p);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		in.close();
 	}
 

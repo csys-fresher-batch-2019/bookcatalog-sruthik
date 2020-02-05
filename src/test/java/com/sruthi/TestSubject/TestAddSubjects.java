@@ -1,20 +1,25 @@
 package com.sruthi.TestSubject;
 
+import com.sruthi.CheckSubjectEnum;
 import com.sruthi.DAOFactory;
-import com.sruthi.Subject.CheckSubjectEnum;
-import com.sruthi.Subject.Subject;
-import com.sruthi.Subject.SubjectDAO;
+import com.sruthi.dao.SubjectDAO;
+import com.sruthi.model.Subject;
 
 
 public class TestAddSubjects {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args)  {
 		Subject s = new Subject();
 		
 		CheckSubjectEnum name = CheckSubjectEnum.English;
 		s.setSubName(name);
 		SubjectDAO dao = DAOFactory.getSubjectDAO();
-		dao.addSubject(s);
+		try {
+			dao.addSubject(s);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
