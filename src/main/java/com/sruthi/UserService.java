@@ -28,9 +28,11 @@ public class UserService {
 				LOGGER.debug("Logged out");
 				return false;
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (Exception e) {
+			
+			
+			LOGGER.error(e);
+			
 		}
 		return false;
 	

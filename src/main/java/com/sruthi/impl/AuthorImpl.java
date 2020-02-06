@@ -31,8 +31,8 @@ public class AuthorImpl implements AuthorDAO {
 			int rows = pst.executeUpdate();
 			LOGGER.info("No of rows inserted:"+rows);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			LOGGER.debug(e);
 		}
 	 
 	}
@@ -40,19 +40,14 @@ public class AuthorImpl implements AuthorDAO {
 	public List<Author> displayNumberOfAuthors()  {
 		List<Author> a = new ArrayList<>();
 		String sql = "select author_id,author_name,author_mail_id,author_ph from authors1";
-		
-		
-		
-		
+	
 	    try(Connection connection = ConnectionUtil.getConnection();Statement stmt=connection.createStatement()) {
-			ResultSet rs = stmt.executeQuery(sql);
+	    	try(ResultSet rs = stmt.executeQuery(sql)){
 			while(rs.next()) {
 				int authorId = rs.getInt("author_id");
 				String authorName = rs.getString("author_name");
 				String authorMailId = rs.getString("author_mail_id");
 				String authorPhNo = rs.getString("author_ph");
-				
-				
 				Author author = new Author();
 				author.setAuthorId(authorId);
 				author.setAuthorName(authorName);
@@ -61,9 +56,9 @@ public class AuthorImpl implements AuthorDAO {
 				LOGGER.debug("Author-Id : "+authorId+"Author name : "+authorName+"\nAuthor Mail-id : "+authorMailId+"\nAuthor Ph-no : "+authorPhNo);
 				a.add(author);
 			}
+	    	}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		 LOGGER.debug(e);
 		}
 		
 		return a;
@@ -82,8 +77,7 @@ public class AuthorImpl implements AuthorDAO {
 			int rows = pst.executeUpdate();
 			LOGGER.info("No of rows updated:"+rows);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.debug(e);
 		}
 		
 	}
@@ -98,8 +92,7 @@ public class AuthorImpl implements AuthorDAO {
 			int rows = pst.executeUpdate();
 			LOGGER.info("No of rows deleted:"+rows);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.debug(e);
 		}
 		
 		

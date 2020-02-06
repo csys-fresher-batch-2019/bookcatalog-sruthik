@@ -6,7 +6,7 @@ import com.sruthi.model.Publisher;
 import com.sruthi.model.Users;
 
 public interface UserDAO {
-	List<Users> displayUsers() throws Exception;
-	void addUser(Users user) throws Exception;
+	List<Users> displayUsers() ;
+	void addUser(Users user) ;
 
 }

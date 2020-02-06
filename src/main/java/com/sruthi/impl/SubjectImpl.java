@@ -1,7 +1,6 @@
 package com.sruthi.impl;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,8 +26,7 @@ public class SubjectImpl implements SubjectDAO{
 			LOGGER.info("No of rows inserted:"+rows);
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.debug(e);
 		}
 	    
 	}
@@ -41,7 +39,7 @@ public class SubjectImpl implements SubjectDAO{
 		try(Connection connection = ConnectionUtil.getConnection();
 			    Statement stmt=connection.createStatement()
 			    ){
-			ResultSet rs = stmt.executeQuery(sql);
+			try(ResultSet rs = stmt.executeQuery(sql)){
 			while(rs.next()) {
 				
 				int subId = rs.getInt("sub_id");
@@ -56,9 +54,9 @@ public class SubjectImpl implements SubjectDAO{
 				list.add(sub);
 	
 			}
+			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.debug(e);
 		}
 		
 		return list;
@@ -77,8 +75,7 @@ public class SubjectImpl implements SubjectDAO{
 			int rows = pst.executeUpdate();
 			LOGGER.info("No of rows updated:"+rows);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.debug(e);
 		}
 	
 	}
@@ -93,8 +90,7 @@ public class SubjectImpl implements SubjectDAO{
 			int rows = pst.executeUpdate();
 			LOGGER.info("No of rows deleted:"+rows);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.debug(e);
 		}
 	
 	}

@@ -1,7 +1,6 @@
 package com.sruthi.impl;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,16 +30,15 @@ public class PublisherImpl implements PublisherDAO {
 			int rows = pst.executeUpdate();
 			LOGGER.info("No of rows inserted:"+rows);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			LOGGER.debug(e);
+					}
 	}
 	
 	
 
 	@Override
 	public void updateMailIdAndPhNo(Publisher pub)  {
-		// TODO Auto-generated method stub
+		
 		String sql = "update publishers set pub_mail_id = ?,pub_ph_no = ? where pub_id = ?";
 		try(Connection connection = ConnectionUtil.getConnection();
 		        PreparedStatement pst = connection.prepareStatement(sql);
@@ -51,8 +49,7 @@ public class PublisherImpl implements PublisherDAO {
 			int rows = pst.executeUpdate();
 			LOGGER.info("No of rows updated:"+rows);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.debug(e);
 		}
 	}
 	
@@ -67,8 +64,7 @@ public void deletePublisher(int pubId)  {
 		int rows = pst.executeUpdate();
 		LOGGER.info("No of rows deleted:"+rows);
 	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+		LOGGER.debug(e);
 	}
 	
 }
@@ -83,7 +79,7 @@ public List<Publisher> displayPubId() {
 	try(Connection connection = ConnectionUtil.getConnection();
 			Statement stmt=connection.createStatement();
 		    ) {
-		ResultSet rs = stmt.executeQuery(sql);
+		try(ResultSet rs = stmt.executeQuery(sql)){
 		while(rs.next()) {
 			int pubId = rs.getInt("pub_id");
 			String pubName = rs.getString("pub_name");
@@ -97,9 +93,9 @@ public List<Publisher> displayPubId() {
 			LOGGER.debug("Publisher-Id"+pubId+"Publisher Name : "+pubName+"\nPublisher Mail-id : "+pubMailId+"\nPublisher Ph-no : "+pubPhNo);
 			list.add(pub);
 		}
+		}
 	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+		LOGGER.debug(e);
 	}
     
 	

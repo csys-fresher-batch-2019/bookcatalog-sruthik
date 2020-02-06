@@ -39,7 +39,7 @@ public class TitleImpl implements TitleDAO{
 			LOGGER.info("No of rows inserted:"+rows);
 		} catch (SQLException e) {
 			
-			e.printStackTrace();
+			LOGGER.debug(e);
 		}
 	}
 
@@ -56,7 +56,7 @@ public class TitleImpl implements TitleDAO{
 			LOGGER.info("No of rows updated:"+rows);
 		} catch (SQLException e) {
 			
-			e.printStackTrace();
+			LOGGER.debug(e);
 		}	
 	}
 	@Override
@@ -66,7 +66,7 @@ public class TitleImpl implements TitleDAO{
 		try(Connection connection = ConnectionUtil.getConnection();
 			    Statement stmt=connection.createStatement()
 			    ) {
-			ResultSet rs = stmt.executeQuery(sql);
+			try(ResultSet rs = stmt.executeQuery(sql)){
 			while(rs.next()) {
 				int titleId = rs.getInt("title_id");
 				int pubId = rs.getInt("pub_id");
@@ -87,9 +87,10 @@ public class TitleImpl implements TitleDAO{
 				list.add(t);
 				
 			}
+			}
 		} catch (SQLException e) {
 			
-			e.printStackTrace();
+			LOGGER.debug(e);
 		}
 		return list;
 	}
@@ -103,8 +104,8 @@ public class TitleImpl implements TitleDAO{
 			int rows = pst.executeUpdate();
 			LOGGER.info("No of rows deleted:"+rows);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			LOGGER.debug(e);
 		}
 	}
 
@@ -117,7 +118,7 @@ public class TitleImpl implements TitleDAO{
 			    PreparedStatement pst = connection.prepareStatement(sql);
 			    ){
 			pst.setInt(1,courseId);
-				ResultSet rs = pst.executeQuery();
+				try(ResultSet rs = pst.executeQuery()){
 				
 				while(rs.next()) {
 					
@@ -129,12 +130,13 @@ public class TitleImpl implements TitleDAO{
 					t.setVersionNumber(versionNumber);
 					t.setPrice(price);
 					list.add(t);
-					//LOGGER.debug("Title-id : "+titleId+"\nPublisher-id : "+pubId+"\nAuthor-id : "+authorId+"\ntitle: "+title+"\nprice: "+price+"\nversion: "+versionNumber);
+					
+				}
 				}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			
+			LOGGER.debug(e);
+			}
 		
 	    return list;
 	    
@@ -156,8 +158,8 @@ public class TitleImpl implements TitleDAO{
 				LOGGER.debug("Title: "+title);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			LOGGER.debug(e);
 		}
 		
 		return list;
@@ -165,13 +167,10 @@ public class TitleImpl implements TitleDAO{
 
 	@Override
 	public List<Title> displayBooksPublishedByIndividualPublishers() {
-		// TODO Auto-generated method stub
+		
 		List<Title> list = new ArrayList<>();
 		String sql = "select pub_name, count(*) as count from   publishers p, titles t where  p.pub_id = t.pub_id group  by pub_name";
-		try(Connection connection = ConnectionUtil.getConnection();
-				PreparedStatement pst = connection.prepareStatement(sql)
-				) {
-			ResultSet rs = pst.executeQuery();
+		try(Connection connection = ConnectionUtil.getConnection();PreparedStatement pst = connection.prepareStatement(sql);ResultSet rs = pst.executeQuery()) {
 			while(rs.next()) {
 				String pubName = rs.getString("pub_name");
 				int count = rs.getInt("count");
@@ -179,22 +178,17 @@ public class TitleImpl implements TitleDAO{
 				
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.debug(e);
 		}
-		
 		return list;
 	}
 
 	@Override
-	public List<Title> displayByRecentBooks()  {
-		// TODO Auto-generated method stub
+	public List<Title> displayByRecentBooks()   {
 		List<Title> list = new ArrayList<>();
 		String sql = "select title,price,pub_date from titles order by pub_date desc";
-		
-		
-		    try(Connection connection = ConnectionUtil.getConnection(); Statement stmt=connection.createStatement()) {
-				ResultSet rs = stmt.executeQuery(sql);
+		    try(Connection connection = ConnectionUtil.getConnection(); Statement stmt=connection.createStatement();ResultSet rs = stmt.executeQuery(sql);) {
+	
 				while(rs.next()) {
 					String title = rs.getString(ACTION_1);
 					int price = rs.getInt(ACTION_2);
@@ -207,11 +201,9 @@ public class TitleImpl implements TitleDAO{
 					
 					
 				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (Exception e) {
+				LOGGER.debug(e);
 			}
-		
 		return list;
 	}
 

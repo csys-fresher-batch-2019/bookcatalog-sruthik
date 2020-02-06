@@ -5,7 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import com.sruthi.impl.UserImpl;
+
 
 public class FileUtil {
 	private FileUtil() {
