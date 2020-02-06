@@ -150,9 +150,10 @@ public class TitleImpl implements TitleDAO{
 		String sql = "select title from titles where to_char(pub_date,'yyyy') = ?";
 		try(Connection connection = ConnectionUtil.getConnection();
 				PreparedStatement pst = connection.prepareStatement(sql);
+				ResultSet rs = pst.executeQuery()
 				) {
 			pst.setInt(1, pubDate.getYear());
-			ResultSet rs = pst.executeQuery();
+			
 			while(rs.next()) {
 				String title = rs.getString(ACTION_1);
 				LOGGER.debug("Title: "+title);

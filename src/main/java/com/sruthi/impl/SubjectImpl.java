@@ -21,7 +21,7 @@ public class SubjectImpl implements SubjectDAO{
 		try(Connection connection = ConnectionUtil.getConnection();
 			    PreparedStatement pst = connection.prepareStatement(sql)
 			    ) {
-			pst.setString(1,sub.getSubName().toString());
+			pst.setString(1,sub.getSubName());
 			int rows = pst.executeUpdate();
 			LOGGER.info("No of rows inserted:"+rows);
 
@@ -70,7 +70,7 @@ public class SubjectImpl implements SubjectDAO{
 		try (Connection connection = ConnectionUtil.getConnection();
 			    PreparedStatement pst = connection.prepareStatement(sql)
 			    ){
-			pst.setString(1, sub.getSubName().toString());
+			pst.setString(1, sub.getSubName());
 			pst.setInt(2, sub.getSubId());
 			int rows = pst.executeUpdate();
 			LOGGER.info("No of rows updated:"+rows);

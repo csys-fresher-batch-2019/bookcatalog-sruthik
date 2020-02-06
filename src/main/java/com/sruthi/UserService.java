@@ -2,7 +2,7 @@ package com.sruthi;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.SQLException;
+
 import java.sql.Types;
 
 import com.sruthi.model.Users;
