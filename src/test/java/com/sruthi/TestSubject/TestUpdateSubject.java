@@ -2,7 +2,7 @@ package com.sruthi.TestSubject;
 
 import java.util.Scanner;
 
-import com.sruthi.CheckSubjectEnum;
+
 import com.sruthi.DAOFactory;
 import com.sruthi.Logger;
 import com.sruthi.dao.SubjectDAO;
@@ -19,8 +19,8 @@ public class TestUpdateSubject {
 		s.setSubId(id);
 		LOGGER.info("Enter Subject-Name : ");
 		
-		CheckSubjectEnum name = CheckSubjectEnum.English;
-		s.setSubName(name);
+		
+		s.setSubName(in.next());
 		
 //		SubjectImpl daoImpl = new SubjectImpl();
 //		daoImpl.updateSubject(s);

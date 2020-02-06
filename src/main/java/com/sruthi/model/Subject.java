@@ -14,8 +14,8 @@ public void setSubId(int subId) {
 public String getSubName() {
 	return subName;
 }
-public void setSubName(String subName) {
-	this.subName = subName;
+public String setSubName(String subName) {
+	return this.subName = subName;
 }
 @Override
 public String toString() {
