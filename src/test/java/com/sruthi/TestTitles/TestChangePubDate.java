@@ -28,7 +28,7 @@ public class TestChangePubDate {
 //		daoImpl.ChangePubDate(t);
 		TitleDAO dao = DAOFactory.getTitleDAO();
 		try {
-			dao.ChangePubDate(t);
+			dao.changePubDate(t);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

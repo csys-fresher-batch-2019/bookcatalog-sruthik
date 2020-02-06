@@ -14,29 +14,32 @@ import com.sruthi.impl.TitleImpl;
 import com.sruthi.impl.UserImpl;
 
 public class DAOFactory {
+	private DAOFactory() {
+	    throw new IllegalStateException("Utility class");
+	  }
+	
 	public static AuthorDAO getAuthorDAO() {
-	AuthorDAO authorDAO = new AuthorImpl();
-	return authorDAO;
+	return new AuthorImpl();
 	}
 	public static PublisherDAO getPublisherDAO() {
-		PublisherDAO publisherDAO = new PublisherImpl();
-		return publisherDAO;
+		
+		return new PublisherImpl();
 		}
 	public static SubjectDAO getSubjectDAO() {
-		SubjectDAO subjectDAO = new SubjectImpl();
-		return subjectDAO;
+		
+		return new SubjectImpl();
 		}
 	public static TitleDAO getTitleDAO() {
-		TitleDAO titleDAO = new TitleImpl();
-		return titleDAO;
+		
+		return new TitleImpl();
 		}
 	public static CourseTitleDAO getCourseTitleDAO() {
-		CourseTitleDAO courseTitleDAO = new CourseTitleImpl();
-		return courseTitleDAO;
+		
+		return new CourseTitleImpl();
 		}
 	public static UserDAO getUserDAO() {
-		UserDAO userdao = new UserImpl();
-		return userdao;
+		
+		return new UserImpl();
 		}
 	
 

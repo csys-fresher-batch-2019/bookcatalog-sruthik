@@ -37,55 +37,70 @@ public class AuthorImpl implements AuthorDAO {
 	 
 	}
 
-	public List<Author> displayNumberOfAuthors() throws Exception {
-		List<Author> a = new ArrayList<Author>();
+	public List<Author> displayNumberOfAuthors()  {
+		List<Author> a = new ArrayList<>();
 		String sql = "select author_id,author_name,author_mail_id,author_ph from authors1";
 		
 		
-		Connection connection = ConnectionUtil.getConnection();
-		Statement stmt=connection.createStatement();
-	    ResultSet rs = stmt.executeQuery(sql);
-	    while(rs.next()) {
-	    	int authorId = rs.getInt("author_id");
-	    	String authorName = rs.getString("author_name");
-	    	String authorMailId = rs.getString("author_mail_id");
-	    	String authorPhNo = rs.getString("author_ph");
-	    	
-	    	
-	    	Author author = new Author();
-	    	author.setAuthorId(authorId);
-	    	author.setAuthorName(authorName);
-	    	author.setAuthorMailId(authorMailId);
-	    	author.setAuthorPhNo(authorPhNo);
-	    	LOGGER.debug("Author-Id : "+authorId+"Author name : "+authorName+"\nAuthor Mail-id : "+authorMailId+"\nAuthor Ph-no : "+authorPhNo);
-			a.add(author);
-	    }
+		
+		
+	    try(Connection connection = ConnectionUtil.getConnection();Statement stmt=connection.createStatement()) {
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				int authorId = rs.getInt("author_id");
+				String authorName = rs.getString("author_name");
+				String authorMailId = rs.getString("author_mail_id");
+				String authorPhNo = rs.getString("author_ph");
+				
+				
+				Author author = new Author();
+				author.setAuthorId(authorId);
+				author.setAuthorName(authorName);
+				author.setAuthorMailId(authorMailId);
+				author.setAuthorPhNo(authorPhNo);
+				LOGGER.debug("Author-Id : "+authorId+"Author name : "+authorName+"\nAuthor Mail-id : "+authorMailId+"\nAuthor Ph-no : "+authorPhNo);
+				a.add(author);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return a;
 	}
 
 	@Override
-	public void updateAuthor(Author author) throws Exception {
+	public void updateAuthor(Author author)  {
 		String sql = "update authors1 set author_mail_id = ?,author_ph = ? where author_id = ?";
-		Connection connection = ConnectionUtil.getConnection();
-		PreparedStatement pst = connection.prepareStatement(sql);
-        pst.setString(1, author.getAuthorMailId());
-        pst.setString(2, author.getAuthorPhNo());
-        pst.setInt(3, author.getAuthorId());
 		
-		int rows = pst.executeUpdate();
-		LOGGER.info("No of rows updated:"+rows);
+		
+        try(Connection connection = ConnectionUtil.getConnection();PreparedStatement pst = connection.prepareStatement(sql)) {
+			pst.setString(1, author.getAuthorMailId());
+			pst.setString(2, author.getAuthorPhNo());
+			pst.setInt(3, author.getAuthorId());
+			
+			int rows = pst.executeUpdate();
+			LOGGER.info("No of rows updated:"+rows);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
 	@Override
-	public void deleteAuthor(int authorId) throws Exception {
+	public void deleteAuthor(int authorId) {
 		String sql = "Delete authors1 where author_id = ?";
-		Connection connection = ConnectionUtil.getConnection();
-		PreparedStatement pst = connection.prepareStatement(sql);
-        pst.setInt(1, authorId);
-        int rows = pst.executeUpdate();
-		LOGGER.info("No of rows deleted:"+rows);
+		
+		
+        try (Connection connection = ConnectionUtil.getConnection();PreparedStatement pst = connection.prepareStatement(sql)){
+			pst.setInt(1, authorId);
+			int rows = pst.executeUpdate();
+			LOGGER.info("No of rows deleted:"+rows);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 	}

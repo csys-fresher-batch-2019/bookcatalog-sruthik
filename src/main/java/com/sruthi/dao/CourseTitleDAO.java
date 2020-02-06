@@ -5,8 +5,8 @@ import java.util.List;
 import com.sruthi.model.CourseTitles;
 
 public interface CourseTitleDAO {
-    void addCourseTitle(CourseTitles course) throws Exception;
-    void deleteCourseTitle(int courseId) throws Exception;
-    void updateCourseTitle(CourseTitles course) throws Exception;
-    List<CourseTitles> displayCourseTitles() throws Exception;
+    void addCourseTitle(CourseTitles course);
+    void deleteCourseTitle(int courseId) ;
+    void updateCourseTitle(CourseTitles course);
+    List<CourseTitles> displayCourseTitles() ;
 }

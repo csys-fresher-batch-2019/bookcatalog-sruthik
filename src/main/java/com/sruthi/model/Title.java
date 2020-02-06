@@ -8,7 +8,7 @@ private int pubId;
 private int subId;
 private int authorId;
 private LocalDate pubDate;
-private String title;
+private String titleName;
 private int versionNumber;
 private int price;
 public int getTitleId() {
@@ -42,10 +42,10 @@ public void setPubDate(LocalDate pubDate) {
 	this.pubDate = pubDate;
 }
 public String getTitle() {
-	return title;
+	return titleName;
 }
 public void setTitle(String title) {
-	this.title = title;
+	this.titleName = title;
 }
 public int getVersionNumber() {
 	return versionNumber;
@@ -64,7 +64,7 @@ public void setPrice(int price) {
 @Override
 public String toString() {
 	return "Title [titleId=" + titleId + ", pubId=" + pubId + ", subId=" + subId + ", authorId=" + authorId
-			+ ", pubDate=" + pubDate + ", title=" + title + ", versionNumber=" + versionNumber + ", price=" + price
+			+ ", pubDate=" + pubDate + ", titleName=" + titleName + ", versionNumber=" + versionNumber + ", price=" + price
 			+ "]";
 }
 }

@@ -2,20 +2,20 @@ package com.sruthi;
 
 public class Logger {
 	public static Logger getInstance() {
-		Logger logger = new Logger();
-		return logger;
+		
+		return new Logger();
 	}
 	public void getInput(Object message) {
-		System.out.println(message);
+		Logger.getInstance();
 	}
 	public void debug(Object message) {
-		System.out.println(message);
+		Logger.getInstance();
 	}
 	public void info(Object message) {
-		System.out.println(message);
+		Logger.getInstance();
 	}
 	public void error(Object message) {
-		System.out.println(message);
+		Logger.getInstance();
 	}
 
 }

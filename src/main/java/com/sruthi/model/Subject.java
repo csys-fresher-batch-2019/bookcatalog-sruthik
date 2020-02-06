@@ -11,11 +11,12 @@ public int getSubId() {
 public void setSubId(int subId) {
 	this.subId = subId;
 }
+
 public String getSubName() {
 	return subName;
 }
-public String setSubName(String subName) {
-	return this.subName = subName;
+public void setSubName(String subName) {
+	this.subName = subName;
 }
 @Override
 public String toString() {

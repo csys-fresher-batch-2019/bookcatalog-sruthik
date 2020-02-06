@@ -20,7 +20,7 @@ public class UserImpl implements UserDAO {
 	private static final Logger LOGGER = Logger.getInstance();
 	@Override
 	public List<Users> displayUsers() throws Exception {
-		List<Users> list = new ArrayList<Users>();
+		List<Users> list = new ArrayList<>();
 		String sql = "Select * from Users";
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 	    Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "oracle");

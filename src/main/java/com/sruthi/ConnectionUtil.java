@@ -13,7 +13,7 @@ public class ConnectionUtil {
 		String server = "CSLH2023";
 		String username = "system";
 		String password = "oracle";
-	    Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@"+server+":1521:XE",username,password);
+	    
 		return DriverManager.getConnection("jdbc:oracle:thin:@"+server+":1521:XE",username,password);
 	}
 }
