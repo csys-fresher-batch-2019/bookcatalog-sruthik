@@ -5,10 +5,15 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionUtil {
-	public static Connection getConnection() throws ClassNotFoundException, SQLException {
-		Class.forName("oracle.jdbc.driver.OracleDriver");
+	private ConnectionUtil() {
+	    throw new IllegalStateException("Utility class");
+	  }
+	public static Connection getConnection() throws  SQLException {
+		
 		String server = "CSLH2023";
-	    Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@"+server+":1521:XE", "system", "oracle");
-		return connection;
+		String username = "system";
+		String password = "oracle";
+	    Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@"+server+":1521:XE",username,password);
+		return DriverManager.getConnection("jdbc:oracle:thin:@"+server+":1521:XE",username,password);
 	}
 }

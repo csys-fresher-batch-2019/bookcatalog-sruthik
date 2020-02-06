@@ -30,7 +30,7 @@ public class AuthorImpl implements AuthorDAO {
 			pst.setString(3, author.getAuthorPhNo());
 			int rows = pst.executeUpdate();
 			LOGGER.info("No of rows inserted:"+rows);
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

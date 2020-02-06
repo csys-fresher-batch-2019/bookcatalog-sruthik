@@ -168,7 +168,7 @@ public class TitleImpl implements TitleDAO{
 					
 					
 				}
-			} catch (SQLException | ClassNotFoundException e) {
+			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
