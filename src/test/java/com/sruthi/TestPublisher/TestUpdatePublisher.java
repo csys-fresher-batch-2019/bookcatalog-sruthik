@@ -21,7 +21,7 @@ public class TestUpdatePublisher {
 		String mail = in.next();
 		p.setPubMailId(mail);
 		LOGGER.getInput("Enter Publisher ph-no : ");
-		p.setPubPhNo(in.next());
+		p.setPubPhNo(in.nextLong());
 //		PublisherImpl obj = new PublisherImpl();
 //		obj.updateMailIdAndPhNo(p);
 		PublisherDAO dao = DAOFactory.getPublisherDAO();

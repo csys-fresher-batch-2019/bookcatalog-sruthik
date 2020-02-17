@@ -15,4 +15,9 @@ public interface TitleDAO {
 	List<Title> displayYearWiseBooks(LocalDate pubDate) ;
 	List<Title> displayBooksPublishedByIndividualPublishers();
 	List<Title> displayByRecentBooks() ;
+	List<Title> displayTitle(int pubId);
+	List<Title> displayTitleForPubName(String pubName);
+	List<Title> displayTitleForAuthorName(String authorName);
+	List<Title> displayTitleForSubName(String subName);
+	int displayPrice(String title,int version);
 }

@@ -17,14 +17,12 @@ public class Author{
 		this.authorMailId = authorMailId;
 	}
 
-	private String authorPhNo;
-	public String getAuthorPhNo() {
+	private long authorPhNo;
+	public long getAuthorPhNo() {
 		return authorPhNo;
 	}
-	public void setAuthorPhNo(String authorPhNo) {
-		if(authorPhNo.length()>10) {
-			throw new IllegalArgumentException("Invalid Phone number!!");
-		}
+	public void setAuthorPhNo(long authorPhNo) {
+		
 			
 		this.authorPhNo = authorPhNo;
 	}

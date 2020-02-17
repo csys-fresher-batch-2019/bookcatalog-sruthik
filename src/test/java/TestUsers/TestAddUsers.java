@@ -32,12 +32,6 @@ public class TestAddUsers {
 	else
 		LOGGER.debug("Password Mismatch");
 		
-	
-	
-    
-	
-		
-		
 	}
 
 }

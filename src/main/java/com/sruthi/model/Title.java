@@ -61,10 +61,5 @@ public void setPrice(int price) {
 }
 
 
-@Override
-public String toString() {
-	return "Title [titleId=" + titleId + ", pubId=" + pubId + ", subId=" + subId + ", authorId=" + authorId
-			+ ", pubDate=" + pubDate + ", titleName=" + titleName + ", versionNumber=" + versionNumber + ", price=" + price
-			+ "]";
-}
+
 }

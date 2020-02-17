@@ -20,7 +20,7 @@ public class DisplayForCourseId {
         try {
 			List<Title> list = dao.displayTitleForCourseId(id);
 			for (Title title : list) {
-				LOGGER.debug("title: "+title.getTitle()+"\nprice: "+title.getPrice()+"\nversion: "+title.getVersionNumber());
+				LOGGER.debug("title: "+title.getTitle()+"\nprice: "+title.getPrice()+"\nversion: "+title.getVersionNumber()+"\nPublished-date : "+title.getPubDate());
 
 			}
 		} catch (Exception e) {

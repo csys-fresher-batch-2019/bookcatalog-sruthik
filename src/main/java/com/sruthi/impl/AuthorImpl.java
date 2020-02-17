@@ -27,7 +27,7 @@ public class AuthorImpl implements AuthorDAO {
 	    try(Connection connection = ConnectionUtil.getConnection();PreparedStatement pst = connection.prepareStatement(sql)) {
 			pst.setString(1, author.getAuthorName());
 			pst.setString(2, author.getAuthorMailId());
-			pst.setString(3, author.getAuthorPhNo());
+			pst.setLong(3, author.getAuthorPhNo());
 			int rows = pst.executeUpdate();
 			LOGGER.info("No of rows inserted:"+rows);
 		} catch (SQLException e) {
@@ -47,7 +47,7 @@ public class AuthorImpl implements AuthorDAO {
 				int authorId = rs.getInt("author_id");
 				String authorName = rs.getString("author_name");
 				String authorMailId = rs.getString("author_mail_id");
-				String authorPhNo = rs.getString("author_ph");
+				long authorPhNo = rs.getLong("author_ph");
 				Author author = new Author();
 				author.setAuthorId(authorId);
 				author.setAuthorName(authorName);
@@ -71,7 +71,7 @@ public class AuthorImpl implements AuthorDAO {
 		
         try(Connection connection = ConnectionUtil.getConnection();PreparedStatement pst = connection.prepareStatement(sql)) {
 			pst.setString(1, author.getAuthorMailId());
-			pst.setString(2, author.getAuthorPhNo());
+			pst.setLong(2, author.getAuthorPhNo());
 			pst.setInt(3, author.getAuthorId());
 			
 			int rows = pst.executeUpdate();

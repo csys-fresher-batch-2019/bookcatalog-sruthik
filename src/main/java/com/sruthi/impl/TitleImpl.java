@@ -71,14 +71,18 @@ public class TitleImpl implements TitleDAO{
 				int titleId = rs.getInt("title_id");
 				int pubId = rs.getInt("pub_id");
 				int authorId = rs.getInt("author_id");
+				int subId = rs.getInt("sub_id");
 				String title = rs.getString(ACTION_1);
 				int price = rs.getInt(ACTION_2);
 				int versionNumber = rs.getInt("version_number");
 				LocalDate date = rs.getDate("pub_date").toLocalDate();
-				LOGGER.debug("title-id: "+titleId+"pub-id : "+pubId+"Author-id : "+authorId+"title: "+title+"\nprice: "+price+"\nversion: "+versionNumber+"Published-date: "+date);
+				LOGGER.debug("title-id: "+titleId+"pub-id : "+pubId+"Author-id : "+authorId+"Subject-Id : "+subId+ "title: "+title+"\nprice: "+price+"\nversion: "+versionNumber+"Published-date: "+date);
 				
 				Title t = new Title();
-				
+				t.setTitleId(titleId);
+				t.setPubId(pubId);
+				t.setAuthorId(authorId);
+				t.setSubId(subId);
 				t.setTitle(title);
 				t.setPrice(price);
 				t.setVersionNumber(versionNumber);
@@ -113,7 +117,7 @@ public class TitleImpl implements TitleDAO{
 
 	public List<Title> displayTitleForCourseId(int courseId)  {
 		List<Title>list = new ArrayList<>();
-		String sql = "select title,version_number,price,course_id from titles t INNER JOIN course_titles c ON t.title_id = c.title_id where course_id = ?";
+		String sql = "select pub_id,author_id,sub_id,title,version_number,price,pub_date,course_id from titles t INNER JOIN course_titles c ON t.title_id = c.title_id where course_id = ?";
 		try (Connection connection = ConnectionUtil.getConnection();
 			    PreparedStatement pst = connection.prepareStatement(sql);
 			    ){
@@ -121,15 +125,23 @@ public class TitleImpl implements TitleDAO{
 				try(ResultSet rs = pst.executeQuery()){
 				
 				while(rs.next()) {
-					
+					int pubId = rs.getInt("pub_id");
+					int authorId = rs.getInt("author_id");
+					int subId = rs.getInt("sub_id");
 					String name = rs.getString(ACTION_1);
 					int versionNumber = rs.getInt("version_number");
 					int price = rs.getInt(ACTION_2);
+					LocalDate pubDate = rs.getDate("pub_date").toLocalDate();
 					Title t = new Title();
+					t.setPubId(pubId);
+					t.setAuthorId(authorId);
+					t.setSubId(subId);
 					t.setTitle(name);
 					t.setVersionNumber(versionNumber);
 					t.setPrice(price);
+					t.setPubDate(pubDate);
 					list.add(t);
+					
 					
 				}
 				}
@@ -147,21 +159,42 @@ public class TitleImpl implements TitleDAO{
 	@Override
 	public List<Title> displayYearWiseBooks(LocalDate pubDate) {
 		List<Title> list = new ArrayList<>();
-		String sql = "select title from titles where to_char(pub_date,'yyyy') = ?";
+		String sql = "select pub_id,author_id,sub_id,title,version_number,price from titles where to_char(pub_date,'yyyy') = ?";
 		try(Connection connection = ConnectionUtil.getConnection();
-				PreparedStatement pst = connection.prepareStatement(sql);
-				ResultSet rs = pst.executeQuery()
-				) {
-			pst.setInt(1, pubDate.getYear());
-			
+				PreparedStatement pst = connection.prepareStatement(sql)) {
+			try {
+				pst.setInt(1, pubDate.getYear());
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			try(ResultSet rs = pst.executeQuery()){
 			while(rs.next()) {
+				int pubId = rs.getInt("pub_id");
+				int authorId = rs.getInt("author_id");
+				int subId = rs.getInt("sub_id");
 				String title = rs.getString(ACTION_1);
-				LOGGER.debug("Title: "+title);
+				int version = rs.getInt("version_number");
+				int price = rs.getInt("price");
+				Title t = new Title();
+				t.setPubId(pubId);
+				t.setAuthorId(authorId);
+				t.setSubId(subId);
+				t.setTitle(title);
+				t.setVersionNumber(version);
+				t.setPrice(price);
+				list.add(t);
+				LOGGER.debug("title : "+title+"\nVersion number : "+version+"\nPrice : "+price);
 			}
 		} catch (SQLException e) {
 			
 			LOGGER.debug(e);
 		}
+		} catch (SQLException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		
 		
 		return list;
 	}
@@ -176,9 +209,12 @@ public class TitleImpl implements TitleDAO{
 				String pubName = rs.getString("pub_name");
 				int count = rs.getInt("count");
 				LOGGER.debug("Publisher-Name : "+pubName+"\nNo of books Published : "+count);
-				
+				//Title t = new Title();
+				//t.setAuthorId(authorId);
+				//list.add(t);
 			}
 		} catch (SQLException e) {
+			
 			LOGGER.debug(e);
 		}
 		return list;
@@ -187,30 +223,210 @@ public class TitleImpl implements TitleDAO{
 	@Override
 	public List<Title> displayByRecentBooks()   {
 		List<Title> list = new ArrayList<>();
-		String sql = "select title,price,pub_date from titles order by pub_date desc";
+		String sql = "select pub_id,author_id,sub_id,title,version_number,price,pub_date from titles order by pub_date desc";
 		    try(Connection connection = ConnectionUtil.getConnection(); Statement stmt=connection.createStatement();ResultSet rs = stmt.executeQuery(sql);) {
 	
 				while(rs.next()) {
+					int pubId = rs.getInt("pub_id");
+					int authorId = rs.getInt("author_id");
+					int subId = rs.getInt("sub_id");
 					String title = rs.getString(ACTION_1);
 					int price = rs.getInt(ACTION_2);
 					LocalDate date = rs.getDate("pub_date").toLocalDate();
+					int version = rs.getInt("version_number");
 					Title t = new Title();
+					t.setPubId(pubId);
+					t.setAuthorId(authorId);
+					t.setSubId(subId);
 					t.setTitle(title);
 					t.setPrice(price);
 					t.setPubDate(date);
+					t.setVersionNumber(version);
 					list.add(t);
 					
 					
 				}
-			} catch (Exception e) {
+			} 
+		    catch (Exception e) {
 				LOGGER.debug(e);
 			}
 		return list;
 	}
 
+	@Override
+	public List<Title> displayTitle(int pubId) {
+		List<Title> list = new ArrayList<>();
+		String sql = "select title from titles where pub_id = ?";
+		try(Connection connection = ConnectionUtil.getConnection();
+				PreparedStatement pst = connection.prepareStatement(sql)){
+				pst.setInt(1, pubId);
+		try(ResultSet rs = pst.executeQuery()){
+			while(rs.next()) {
+				String title = rs.getString(ACTION_1);
+				int version = rs.getInt("version_number");
+				int price = rs.getInt("price");
+				Title t = new Title();
+				t.setTitle(title);
+				t.setVersionNumber(version);
+				t.setPrice(price);
+				list.add(t);
+				LOGGER.debug("title : "+title+"\nVersion number : "+version+"\nPrice : "+price);
+			}
+		}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return list;
+	}
+
+public List<Title> displayTitleForPubName(String pubName)  {
+	List<Title>list = new ArrayList<>();
+	String sql = "select title,version_number,price from titles t INNER JOIN publishers p ON t.pub_id = p.pub_id where pub_name=?";
+	try (Connection connection = ConnectionUtil.getConnection();
+		    PreparedStatement pst = connection.prepareStatement(sql);
+		    ){
+		pst.setString(1,pubName);
+			try(ResultSet rs = pst.executeQuery()){
+			
+			while(rs.next()) {
+				
+				String name = rs.getString(ACTION_1);
+				int versionNumber = rs.getInt("version_number");
+				int price = rs.getInt(ACTION_2);
+				
+				Title t = new Title();
+				
+				t.setTitle(name);
+				t.setVersionNumber(versionNumber);
+				t.setPrice(price);
+				list.add(t);
+				
+				
+			}
+			}
+	} catch (SQLException e) {
+		
+		LOGGER.debug(e);
+		}
+	
+    return list;
+    
+	
+	
+}
+
+public List<Title> displayTitleForSubName(String subName)  {
+	List<Title>list = new ArrayList<>();
+	String sql = "select pub_id,author_id,title,version_number,price from titles t INNER JOIN subjects s ON t.sub_id = s.sub_id where sub_name=?";
+	try (Connection connection = ConnectionUtil.getConnection();
+		    PreparedStatement pst = connection.prepareStatement(sql);
+		    ){
+		pst.setString(1,subName);
+			try(ResultSet rs = pst.executeQuery()){
+			
+			while(rs.next()) {
+				int pubId = rs.getInt("pub_id");
+				int authorId = rs.getInt("author_id");
+				String name = rs.getString(ACTION_1);
+				int versionNumber = rs.getInt("version_number");
+				int price = rs.getInt(ACTION_2);
+				
+				Title t = new Title();
+				t.setPubId(pubId);
+				t.setAuthorId(authorId);
+				t.setTitle(name);
+				t.setVersionNumber(versionNumber);
+				t.setPrice(price);
+				list.add(t);
+				
+				
+			}
+			}
+	} catch (SQLException e) {
+		
+		LOGGER.debug(e);
+		}
+	
+    return list;
+    
+	
+	
+}
+
+@Override
+public List<Title> displayTitleForAuthorName(String authorName) {
+	List<Title>list = new ArrayList<>();
+	String sql = "select title,version_number,price from titles t INNER JOIN authors1 a ON t.author_id = a.author_id where author_name=?";
+	try (Connection connection = ConnectionUtil.getConnection();
+		    PreparedStatement pst = connection.prepareStatement(sql);
+		    ){
+		pst.setString(1,authorName);
+			try(ResultSet rs = pst.executeQuery()){
+			
+			while(rs.next()) {
+				
+				String name = rs.getString(ACTION_1);
+				int versionNumber = rs.getInt("version_number");
+				int price = rs.getInt(ACTION_2);
+				
+				Title t = new Title();
+				
+				t.setTitle(name);
+				t.setVersionNumber(versionNumber);
+				t.setPrice(price);
+				list.add(t);
+				
+				
+			}
+			}
+	} catch (SQLException e) {
+		
+		LOGGER.debug(e);
+		}
+	
+    return list;
+    
+	
+	
+}
+
+public int displayPrice(String title,int version) {
+	int price = 0;
+	String sql = "select price from titles where title = ? and version_number = ?";
+	try(Connection connection = ConnectionUtil.getConnection();
+			PreparedStatement pst = connection.prepareStatement(sql)
+		    ) {
+		pst.setString(1, title);
+		pst.setInt(2,version);
+		try(ResultSet rs = pst.executeQuery()){
+		while(rs.next()) {
+			
+			 price = rs.getInt(ACTION_2);
+			
+			LOGGER.debug("price: "+price);
+			
+			Title t = new Title();
+			t.setPrice(price);
+			
+			
+		}
+		}
+	} catch (SQLException e) {
+		
+		LOGGER.debug(e);
+	}
+	return price;
+	
+}
+}
+
+
 	
 		
 		
 		
 
-}
+

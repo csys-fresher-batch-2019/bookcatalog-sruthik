@@ -9,9 +9,7 @@ import com.sruthi.dao.TitleDAO;
 import com.sruthi.model.Title;
 
 public class TestAddTitle {
-	/**
-	 * 
-	 */
+	
 	private static final Logger LOGGER = Logger.getInstance();
 	public static void main(String[] args)  {
 		Title t = new Title();
@@ -47,7 +45,6 @@ public class TestAddTitle {
 		}
 		in.close();
 		
-
-	}
+		}
 
 }

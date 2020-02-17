@@ -18,7 +18,7 @@ public class TestAddAuthor {
        LOGGER.getInput("Enter Author mail-id: ");
        a.setAuthorMailId(in.next());
        LOGGER.getInput("Enter Author Ph-no: ");
-       a.setAuthorPhNo(in.next());
+       a.setAuthorPhNo(in.nextLong());
        
 //       AuthorImpl daoImpl = new AuthorImpl();
 //       daoImpl.addAuthor(a);

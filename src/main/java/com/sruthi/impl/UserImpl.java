@@ -34,7 +34,7 @@ public class UserImpl implements UserDAO {
 				user.setSetPassword(password);
 				user.setConfirmPassword(cpassword);
 				user.setPhNo(phNo);
-				
+				LOGGER.debug(userName+" "+userMail+" "+password+" "+cpassword);
 				list.add(user);
 				
 			}
@@ -61,6 +61,8 @@ public class UserImpl implements UserDAO {
 				int rows = pst.executeUpdate();
 				LOGGER.info("No of rows inserted:"+rows);
 			} catch (Exception e) {
+				e.printStackTrace();
+				
 				LOGGER.debug(e);
 			}
 		}

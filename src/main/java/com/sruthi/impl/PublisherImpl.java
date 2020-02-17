@@ -24,7 +24,7 @@ public class PublisherImpl implements PublisherDAO {
 				) {
 			pst.setString(1, pub.getPubName());
 			pst.setString(2, pub.getPubMailId());
-			pst.setString(3, pub.getPubPhNo());
+			pst.setLong(3, pub.getPubPhNo());
 			
 			//step 3:Execute the query
 			int rows = pst.executeUpdate();
@@ -44,7 +44,7 @@ public class PublisherImpl implements PublisherDAO {
 		        PreparedStatement pst = connection.prepareStatement(sql);
 		        ) {
 			pst.setString(1, pub.getPubMailId());
-			pst.setString(2, pub.getPubPhNo());
+			pst.setLong(2, pub.getPubPhNo());
 			pst.setInt(3, pub.getPubId());
 			int rows = pst.executeUpdate();
 			LOGGER.info("No of rows updated:"+rows);
@@ -84,7 +84,7 @@ public List<Publisher> displayPubId() {
 			int pubId = rs.getInt("pub_id");
 			String pubName = rs.getString("pub_name");
 			String pubMailId = rs.getString("pub_mail_id");
-			String pubPhNo = rs.getString("pub_ph_no");
+			Long pubPhNo = rs.getLong("pub_ph_no");
 			Publisher pub = new Publisher();
 			pub.setPubId(pubId);
 			pub.setPubName(pubName);

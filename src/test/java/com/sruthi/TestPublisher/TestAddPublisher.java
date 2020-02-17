@@ -20,7 +20,7 @@ public class TestAddPublisher {
 		String mail = in.next();
 		p.setPubMailId(mail);
 		LOGGER.getInput("Enter Publisher ph-no : ");
-		String phone = in.next();
+		long phone = in.nextLong();
 		p.setPubPhNo(phone);
 		
 		PublisherDAO dao = DAOFactory.getPublisherDAO();

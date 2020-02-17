@@ -40,20 +40,17 @@ public void setPubMailId(String pubMailId) {
 
 
 
-private String pubPhNo;
+private long pubPhNo;
  
  
 
-public String getPubPhNo() {
+public long getPubPhNo() {
 	return pubPhNo;
 }
 
 
 
-public void setPubPhNo(String pubPhNo) {
-	if(pubPhNo.length()>10) {
-		throw new IllegalArgumentException("Invalid Phone number!!");
-	}
+public void setPubPhNo(long pubPhNo) {
 	this.pubPhNo = pubPhNo;
 }
 

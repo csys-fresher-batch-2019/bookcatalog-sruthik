@@ -19,7 +19,7 @@ public class TestUpdateAuthor {
 		String mail = in.next();
 		a.setAuthorMailId(mail);
 		LOGGER.getInput("Enter Author ph-no : ");
-		String phone = in.next();
+		Long phone = in.nextLong();
 		a.setAuthorPhNo(phone);
 //		AuthorImpl daoImpl = new AuthorImpl();
 //		daoImpl.updateAuthor(a);
